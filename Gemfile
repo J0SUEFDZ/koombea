@@ -34,6 +34,15 @@ gem 'devise'
 # Apply styles
 gem 'bootstrap', '~> 5.1.3'
 
+# Load CSV files
+gem 'csv'
+
+# Run background jobs
+gem 'sidekiq'
+
+# Debugging
+gem 'pry'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]

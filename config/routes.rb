@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     registrations: 'users/registrations'
   }
 
-  resources :contacts
+  resources :contacts do
+    collection do
+      post 'import_data', to: 'contacts#import_data'
+    end
+  end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

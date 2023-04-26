@@ -1,36 +1,40 @@
-<h1>Contacts List</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Date of Birth</th>
-      <th>Phone</th>
-      <th>Address</th>
-      <th>Credit Card Number</th>
-      <th>Credit Card Network</th>
-      <th>Email</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<div class="container">
+  <div class="row justify-content-center">
+    <% if @contacts.length > 0 %>
+        <div class="col-md-6"><h1>Contacts</h1>
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Credit Card Number</th>
+                <th>Credit Card Network</th>
+                <th>Email</th>
+                <th colspan="3"></th>
+              </tr>
+            </thead>
 
-  <tbody>
-    <% @contacts.each do |contact| %>
-      <tr>
-        <td><%= contact.name %></td>
-        <td><%= contact.dob %></td>
-        <td><%= contact.phone %></td>
-        <td><%= contact.address %></td>
-        <td><%= contact.cc_number %></td>
-        <td><%= contact.cc_network %></td>
-        <td><%= contact.email %></td>
-        <td><%= link_to 'Show', contact %></td>
-        <td><%= link_to 'Edit', edit_contact_path(contact) %></td>
-        <td><%= link_to 'Destroy', contact, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <tbody>
+              <% @contacts.each do |contact| %>
+                <tr>
+                  <td><%= contact.name %></td>
+                  <td><%= contact.dob %></td>
+                  <td><%= contact.phone %></td>
+                  <td><%= contact.address %></td>
+                  <td><%= contact.cc_number %></td>
+                  <td><%= contact.cc_network %></td>
+                  <td><%= contact.email %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+      </div>
 
-<br>
-
-<%= link_to 'New Contact', new_contact_path %>
+      <% else %>
+        <h3 class="text-center font-weight-bold"> No contacts yet. </h3>
+      <% end %>
+      <%= link_to 'Import Contacts from CSV', new_contact_path, class: "col-md-2 btn btn-primary btn-sm" %>
+  </div>
+</div>
