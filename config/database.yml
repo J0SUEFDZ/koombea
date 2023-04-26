@@ -82,5 +82,3 @@ test:
 production:
   <<: *default
   database: koombea_production
-  username: koombea
-  password: <%= ENV['KOOMBEA_DATABASE_PASSWORD'] %>
