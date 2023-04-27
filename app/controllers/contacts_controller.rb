@@ -7,8 +7,8 @@ class ContactsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @contacts = Contact.all
-    @string_list = ["String 1", "String 2", "String 3"]
+    # @contacts = Contact.paginate(page: params[:page], per_page: 1)
+    @contacts = Contact.page(params[:page]).per(10)
   end
 
   def import_data

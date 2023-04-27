@@ -58,7 +58,7 @@ class ImportDataJob
         logs.push(message)
       end
       new_contact.user_id = user_id
-      binding.pry
+
       logs.push('Success') if new_contact.save
     end
   end
