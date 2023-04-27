@@ -63,8 +63,6 @@ module ContactsHelper
     end
 
     if valid_lengths.include?(cc_number.length)
-      cc_size = cc_number.length
-      show_cc_number = 'X' * (cc_size - 4) + " #{cc_number[cc_size - 4..]}"
       { status: true, cc_network: cc_network, message: '' }
     else
       { status: false, message: "Card Number #{cc_number} doesn\'t match network or is invalid" }

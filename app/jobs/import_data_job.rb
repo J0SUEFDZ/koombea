@@ -44,6 +44,8 @@ class ImportDataJob
       if status
         new_email = row[email_row]
         repeteaded_email = Contact.find_by(user_id: user_id, email: new_email).present?
+        logs.push("Repeteated email #{new_email}") and next if repeteaded_email
+
         new_contact.email = row[email_row]
       else
         logs.push(message) and next
