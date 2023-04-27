@@ -3,46 +3,41 @@
     <div class="col-md-6">
       <h1>Import Contacts</h1>
       <p>Please specify which field belongs to each row on your CSV file.</p>
-      <p>Any extra field on the CSV file will be ignored</p>
+      <p>Any extra field on the CSV file will be ignored!</p>
       <%= form_tag import_data_contacts_path, method: :post, multipart: true do %>
         <div class=form-group>
           <%= label_tag(:name, "Name:") %>
-          <%= text_field_tag(:name, 'name', class: 'form-control', data: {toggle: "tooltip", placement: "top"}, title: "Algo") %><br>
+          <%= text_field_tag(:name, 'name', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
           <%= label_tag(:dob, "Day of Birth:") %>
-          <%= text_field_tag(:dob, 'dob', class: 'form-control') %><br>
+          <%= text_field_tag(:dob, 'dob', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
-          <%= label_tag(:phone, "Phone:") %>
-          <%= text_field_tag(:phone, 'phone', class: 'form-control') %><br>
+          <%= label_tag(:phone, "Phone Number:") %>
+          <%= text_field_tag(:phone, 'phone', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
-          <%= label_tag(:address, "Adress:") %>
-          <%= text_field_tag(:address, 'address', class: 'form-control') %><br>
+          <%= label_tag(:address, "Address:") %>
+          <%= text_field_tag(:address, 'address', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
           <%= label_tag(:cc_number, "Credit Card Number:") %>
-          <%= text_field_tag(:cc_number, 'cc_number', class: 'form-control') %><br>
-        </div>
-
-        <div class=form-group>
-          <%= label_tag(:cc_network, "Credit Card Network:") %>
-          <%= text_field_tag(:cc_network, 'cc_network', class: 'form-control') %><br>
+          <%= text_field_tag(:cc_number, 'cc_number', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
           <%= label_tag(:email, "Email:") %>
-          <%= text_field_tag(:email, 'email', class: 'form-control') %><br>
+          <%= text_field_tag(:email, 'email', class: 'form-control', required: true) %><br>
         </div>
 
         <div class=form-group>
           <%= label_tag(:file, "File:") %>
-          <%= file_field_tag(:file, class: "form-control") %><br>
+          <%= file_field_tag(:file, class: "form-control", required: true) %><br>
         </div>
 
         <%= submit_tag 'Import Data', class: "btn btn-primary"%>
