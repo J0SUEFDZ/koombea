@@ -1,0 +1,35 @@
+
+<div class="container">
+  <div class="row justify-content-center">
+    <% if @import_job_log.present? %>
+      <h5 class="modal-title">Status for job: <strong><%= @import_job_log.job_id %></strong></h5>
+      <h6 class="modal-subtitle">Status: <strong><%= @import_job_log.status %></strong></h6>
+      <h6 class="modal-subtitle">Filename: <strong><%= @import_job_log.file_path %></strong></h6>
+      <table class="table table-bordered table-striped table-light">
+        <thead>
+          <tr>
+          <th scope='col'>Row #</th>
+          <th scope='col'>Error Message</th>
+          <th scope='col'>Type</th>
+          <th scope='col'>Value</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @import_job_log.message_errors.each do |log_error| %>
+            <tr>
+              <th scope='row'><%= log_error[:row_id] %></th>
+              <td><%= log_error[:error_message] %></td>
+              <td><%= log_error[:type] %></td>
+              <td><%= log_error[:value] %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    <% else %>
+      <h3 class="text-center font-weight-bold"> No errors yet. </h3>
+    <% end %>
+    <%= link_to 'Go Back', contacts_path, class: "col-md-2 btn btn-primary btn-sm ms-1" %>
+  </div>
+</div>

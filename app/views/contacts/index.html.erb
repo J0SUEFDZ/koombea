@@ -2,21 +2,6 @@
   <div class="row justify-content-center">
     <% if @contacts.length > 0 %>
         <div class="col-md-12"><h1>Contacts</h1>
-          <%
-=begin%>
- <%= will_paginate @contacts, renderer: Bootstrap::Pagination::Rails %>
-<%
-=end%>
-          <%
-=begin%>
- <%= will_paginate @contacts, renderer: WillPaginate::ActionView::Bootstrap5Renderer %>
-<%
-=end%>
-          <%
-=begin%>
- <%= will_paginate @contacts %>
-<%
-=end%>
           <%= paginate @contacts, theme: 'bootstrap-5',
                    pagination_class: "pagination-sm flex-wrap justify-content-center",
                    nav_class: "d-inline-block" %>
@@ -52,36 +37,8 @@
       <% else %>
         <h3 class="text-center font-weight-bold"> No contacts yet. </h3>
       <% end %>
-      <%= link_to 'Import Contacts from CSV', new_contact_path, class: "col-md-2 btn btn-primary btn-sm" %>
-      <%
-=begin%>
- <button type="button" class="col-md-2 btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#string-list-modal">View List of Strings</button>
-<%
-=end%>
+      <%= link_to 'Import Contacts from CSV', new_contact_path, class: "col-md-2 btn btn-primary btn-sm ms-1" %>
+      <%= link_to 'Reload', contacts_path, class: "col-md-2 btn btn-primary btn-sm ms-1" %>
+      <%= link_to 'Last Errors', last_import_log_contacts_path, class: "col-md-2 btn btn-primary btn-sm ms-1" %>
   </div>
 </div>
-
-<%
-=begin%>
- <div class="modal fade" id="string-list-modal" tabindex="-1" aria-labelledby="string-list-modal-label" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="string-list-modal-label">List of Strings</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <ul>
-          <% @string_list.each do |string| %>
-            <li><%= string %></li>
-          <% end %>
-        </ul>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-<%
-=end%>

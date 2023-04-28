@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'pry'
 # Validates information from form
 module ContactsHelper
   def validate_name(name)
@@ -16,7 +15,7 @@ module ContactsHelper
   end
 
   def validate_phone(phone)
-    valid_phone = phone.match?(/^\(\+\d{2}\) \d{3}[-\s]?\d{3} \d{2} \d{2}$/)
+    valid_phone = phone.match?(/^\(\+\d{2}\) (\d{3}[-\s]\d{3}[-\s]\d{2}[-\s]\d{2})$/)
     { status: valid_phone, message: valid_phone ? '' : "#{phone} doesn\'t have a valid format" }
   end
 

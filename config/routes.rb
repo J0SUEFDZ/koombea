@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :contacts do
     collection do
       post 'import_data', to: 'contacts#import_data'
+      get 'last_import_log', to: 'contacts#last_import_log'
     end
   end
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

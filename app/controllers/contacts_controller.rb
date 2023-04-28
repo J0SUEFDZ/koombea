@@ -7,14 +7,16 @@ class ContactsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # @contacts = Contact.paginate(page: params[:page], per_page: 1)
     @contacts = Contact.page(params[:page]).per(10)
   end
 
   def import_data
-    uploaded_file = params[:file]&.tempfile&.path
-    if uploaded_file.present?
+    filename = "/tmp/#{SecureRandom.uuid}-#{params[:file].original_filename}"
+    if params[:file].present?
       # Enqueue the background job to process the uploaded file
+      File.open(filename, 'wb') do |file|
+        file.write(params[:file].read)
+      end
       request_params = {
         name: params[:name],
         dob: params[:dob],
@@ -22,14 +24,19 @@ class ContactsController < ApplicationController
         address: params[:address],
         cc_number: params[:cc_number],
         email: params[:email],
-        file: params[:file]&.tempfile&.path
+        file: filename
       }
-      ImportDataJob.perform_async(current_user.id, request_params)
-      flash[:success] = 'File uploaded and processing has started'
+      secure_job_id = SecureRandom.hex(10)
+      ImportDataJob.perform_async(current_user.id, request_params, secure_job_id)
+      flash[:success] = "File uploaded and processing has started with id #{secure_job_id}"
     else
       flash[:error] = 'Please select a file to upload'
     end
 
-    # render
+    redirect_to root_path
+  end
+
+  def last_import_log
+    @import_job_log = ImportDataLog.where(user_id: current_user.id).last
   end
 end
