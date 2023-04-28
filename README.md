@@ -55,6 +55,7 @@ redis-server # start redis
 rails s #on one tab Terminal
 bundle exec sidekiq # on another tab Terminal
 ```
+Use file `Koombea Contacts File - Hoja 1.csv` localted in the root of this file for testing
 # Test
 ```bash
 rails db:create RAILS_ENV=test # create DB in case doesn't exists
