@@ -78,7 +78,6 @@ class ImportDataJob
         next
       end
       new_contact.user_id = user_id
-
       finished = true if new_contact.save
     end
 
