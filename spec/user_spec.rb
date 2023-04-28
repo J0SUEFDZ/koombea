@@ -20,9 +20,18 @@ RSpec.describe User, type: :model do
 
     context 'with invalid attributes' do
       it 'raises a validation error' do
-        expect {
+        expect do
           create(:user, email: nil)
-        }.to raise_error(ActiveRecord::RecordInvalid, "Validation failed: Email can't be blank")
+        end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Email can\'t be blank')
+      end
+    end
+    context 'with repeteaded email' do
+      it 'catches errors' do
+        email = 'josue.fernandez@gmail.com'
+        create(:user, email: email)
+        expect do
+          create(:user, email: email)
+        end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Email has already been taken')
       end
     end
   end
