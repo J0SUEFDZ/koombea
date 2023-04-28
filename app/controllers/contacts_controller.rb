@@ -7,7 +7,7 @@ class ContactsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @contacts = Contact.page(params[:page]).per(10)
+    @contacts = Contact.where(user_id: current_user.id).page(params[:page]).per(10)
   end
 
   def import_data
