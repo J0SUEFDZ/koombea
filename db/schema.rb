@@ -29,15 +29,6 @@ ActiveRecord::Schema.define(version: 2023_04_27_211536) do
     t.index ["user_id"], name: "index_contacts_on_user_id"
   end
 
-  create_table "import_data_errors", force: :cascade do |t|
-    t.string "job_id"
-    t.bigint "user_id", null: false
-    t.json "errors"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_import_data_errors_on_user_id"
-  end
-
   create_table "import_data_logs", force: :cascade do |t|
     t.string "job_id"
     t.bigint "user_id", null: false
@@ -62,6 +53,5 @@ ActiveRecord::Schema.define(version: 2023_04_27_211536) do
   end
 
   add_foreign_key "contacts", "users"
-  add_foreign_key "import_data_errors", "users"
   add_foreign_key "import_data_logs", "users"
 end
