@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe ImportDataJob, type: :worker do
@@ -20,9 +22,9 @@ RSpec.describe ImportDataJob, type: :worker do
       allow_any_instance_of(ImportDataJob).to receive(:require).with(request_params).and_return(true)
 
       # perform the worker
-      expect{
+      expect do
         ImportDataJob.new.perform(user.id, request_params, job_id)
-      }.to change(Contact, :count).by(10)
+      end.to change(Contact, :count).by(10)
 
       # Log Created Succesfully
       expect(ImportDataLog.count).to eq(1)
@@ -47,9 +49,9 @@ RSpec.describe ImportDataJob, type: :worker do
 
       # SECOND RUN
       job_id = SecureRandom.hex(10)
-      expect{
+      expect do
         ImportDataJob.new.perform(user.id, request_params, job_id)
-      }.to_not change(Contact, :count)
+      end.to_not change(Contact, :count)
 
       # Log Created Succesfully
       expect(ImportDataLog.count).to eq(2)

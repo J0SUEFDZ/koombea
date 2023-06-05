@@ -12,7 +12,7 @@ class ImportDataJob
     logs = []
     import_data_log = create_import_data(params['file'], user_id, job_id)
     finished = false # at least one contact was created
-    CSV.foreach(params['file'], headers: true, encoding: "UTF-8").with_index(2) do |row, row_number|
+    CSV.foreach(params['file'], headers: true, encoding: 'UTF-8').with_index(2) do |row, row_number|
       # Mapped row names
       name_row = params['name']
       dob_row = params['dob']
@@ -42,7 +42,8 @@ class ImportDataJob
       status, message = validate_phone(row[phone_row]).values_at(:status, :message)
       new_contact.phone = row[phone_row] if status
       unless status
-        logs.push({ row_id: row_number, error_message: message, type: :phone, value: row[phone_row] })
+        logs.push({ row_id: row_number, error_message: message, type: :phone,
+                    value: row[phone_row] })
         next
       end
 
@@ -50,7 +51,8 @@ class ImportDataJob
       status, message = validate_address(row[address_row]).values_at(:status, :message)
       new_contact.address = row[address_row] if status
       unless status
-        logs.push({ row_id: row_number, error_message: message, type: :address, value: row[address_row] })
+        logs.push({ row_id: row_number, error_message: message, type: :address,
+                    value: row[address_row] })
         next
       end
 
@@ -59,22 +61,26 @@ class ImportDataJob
       if status
         new_email = row[email_row]
         if Contact.find_by(user_id: user_id, email: new_email).present?
-          logs.push({ row_id: row_number, error_message: 'Repeteated email', type: :email, value: row[email_row] })
+          logs.push({ row_id: row_number, error_message: 'Repeteated email', type: :email,
+                      value: row[email_row] })
           next
         end
         new_contact.email = row[email_row]
       else
-        logs.push({ row_id: row_number, error_message: message, type: :email, value: row[email_row] })
+        logs.push({ row_id: row_number, error_message: message, type: :email,
+                    value: row[email_row] })
         next
       end
 
       # Credit Card
-      status, message, cc_network = validate_cc_number(row[cc_number_row]).values_at(:status, :message, :cc_network)
+      status, message, cc_network = validate_cc_number(row[cc_number_row]).values_at(:status,
+                                                                                     :message, :cc_network)
       if status
         new_contact.cc_number = row[cc_number_row]
         new_contact.cc_network = cc_network
       else
-        logs.push({ row_id: row_number, error_message: message, type: :cc_number, value: row[cc_number_row] })
+        logs.push({ row_id: row_number, error_message: message, type: :cc_number,
+                    value: row[cc_number_row] })
         next
       end
       new_contact.user_id = user_id
@@ -94,7 +100,8 @@ class ImportDataJob
 
   def create_import_data(filename, user_id, job_id)
     ActiveRecord::Base.transaction do
-      return ImportDataLog.create({ file_path: filename, user_id: user_id, job_id: job_id, status: 'processing' })
+      return ImportDataLog.create({ file_path: filename, user_id: user_id, job_id: job_id,
+                                    status: 'processing' })
     end
   end
 end

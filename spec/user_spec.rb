@@ -31,7 +31,8 @@ RSpec.describe User, type: :model do
         create(:user, email: email)
         expect do
           create(:user, email: email)
-        end.to raise_error(ActiveRecord::RecordInvalid, 'Validation failed: Email has already been taken')
+        end.to raise_error(ActiveRecord::RecordInvalid,
+                           'Validation failed: Email has already been taken')
       end
     end
   end

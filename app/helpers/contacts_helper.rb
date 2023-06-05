@@ -5,7 +5,8 @@ module ContactsHelper
   def validate_name(name)
     # Names with special characters, except for the minus(-) will be invalid values and cannot be saved.
     valid_name = name.match?(/^[a-zA-ZÀ-ÖØ-öø-ÿ -]+$/)
-    { status: valid_name, message: valid_name ? '' : "#{name} contains invalid characters and cannot be saved" }
+    { status: valid_name,
+      message: valid_name ? '' : "#{name} contains invalid characters and cannot be saved" }
   end
 
   def validate_dob(dob)
@@ -29,7 +30,7 @@ module ContactsHelper
   end
 
   def validate_email(email)
-    valid_email = email.match?(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i)
+    valid_email = email.match?(/\A[\w+\-.]+@[a-z\d-]+(\.[a-z\d-]+)*\.[a-z]+\z/i)
     { status: valid_email, message: valid_email ? '' : "#{email} doesn\'t have a valid format" }
   end
 
